@@ -1,49 +1,95 @@
 package com.moji4j;
 
+import java.util.Map;
+
 public class MojiConverter {
-    private static final int MAX_ROMAJI_KEY_LENGTH = 3;
 
-    public String convertRomajiToKatakana(String romajiString) {
+    public String convertRomajiToKatakana(String string) {
+        return convertString(string.toLowerCase(), ConversionMode.ROMAJI_TO_KATAKANA);
+    }
 
-        romajiString = romajiString.toLowerCase();
-        StringBuilder katakanaBuilder = new StringBuilder();
+    public String convertRomajiToHiragana(String string) {
+        return convertString(string.toLowerCase(), ConversionMode.ROMAJI_TO_HIRAGANA);
+    }
+
+    private String convertString(String originalString, ConversionMode mode) {
+
+        StringBuilder resultBuilder = new StringBuilder();
+        ConversionTable conversionTable = ConversionTable.getConversionTableForMode(mode);
 
         int currentOffset = 0;
-        int substringLength = MAX_ROMAJI_KEY_LENGTH;
 
-        while (currentOffset < romajiString.length()) {
+        while (currentOffset < originalString.length()) {
+            char character = originalString.charAt(currentOffset);
 
-            if (currentOffset + substringLength <= romajiString.length()) {
+            // Replace long vowel in katakana.
+            if (mode == ConversionMode.ROMAJI_TO_KATAKANA &&
+                    isRomanVowel(character) && currentOffset > 1) {
 
-                String romajiSubstring = romajiString.substring(currentOffset, currentOffset + substringLength);
-                String katakanaString = MojiConversionTable.ROMAJI_TO_KATAKANA.get(romajiSubstring);
+                char previousCharacter = originalString.charAt(currentOffset - 1);
 
-                if (katakanaString != null) {
-                    katakanaBuilder.append(katakanaString);
-
-                    currentOffset += romajiSubstring.length();
-                    substringLength = MAX_ROMAJI_KEY_LENGTH;
-
-                    continue;
-
-                } else if (substringLength == 1) {
-                    katakanaBuilder.append(romajiSubstring);
+                if (character == previousCharacter) {
+                    resultBuilder.append('ー');
 
                     currentOffset += 1;
-                    substringLength = MAX_ROMAJI_KEY_LENGTH;
-
                     continue;
                 }
             }
 
-            substringLength -= 1;
+            // Replace double consonant with a sokuon marker.
+            if ((mode == ConversionMode.ROMAJI_TO_KATAKANA || mode == ConversionMode.ROMAJI_TO_HIRAGANA) &&
+                    isRomanConsonant(character) && currentOffset < originalString.length() - 1) {
+
+                char nextCharacter = originalString.charAt(currentOffset + 1);
+
+                if (character == nextCharacter || (character == 't' && nextCharacter == 'c')) {
+
+                    if (mode == ConversionMode.ROMAJI_TO_KATAKANA) {
+                        resultBuilder.append('ッ');
+
+                    } else {
+                        resultBuilder.append('っ');
+                    }
+
+                    currentOffset += 1;
+                    continue;
+                }
+            }
+
+            int substringLength = Math.min(conversionTable.getMaxKeyLength(), originalString.length() - currentOffset);
+
+            while (substringLength > 0) {
+                String substring = originalString.substring(currentOffset, currentOffset + substringLength);
+                String replacementString = conversionTable.get(substring);
+
+                // Replace substring if there's a proper mapping.
+                if (replacementString != null) {
+                    resultBuilder.append(replacementString);
+
+                    currentOffset += substring.length();
+                    break;
+                }
+
+                // Keep original character for unsuccessful mapping.
+                if (substringLength == 1) {
+                    resultBuilder.append(character);
+
+                    currentOffset += 1;
+                    break;
+                }
+
+                substringLength -= 1;
+            }
         }
 
-        return katakanaBuilder.toString();
+        return resultBuilder.toString();
     }
 
-    public String convertRomajiToHiragana(String string) {
+    private static boolean isRomanConsonant(char character) {
+        return character >= 'a' && character <= 'z' && ! isRomanVowel(character);
+    }
 
-        return null;
+    private static boolean isRomanVowel(char character) {
+        return character == 'a' || character == 'i' || character == 'u' || character == 'e' || character == 'o';
     }
 }
