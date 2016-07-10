@@ -3,9 +3,6 @@ package com.moji4j;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Map;
-import java.util.TreeMap;
-
 import static org.junit.Assert.assertEquals;
 
 public class MojiConverterTest {
@@ -19,7 +16,6 @@ public class MojiConverterTest {
 
     @Test
     public void shouldConvertRomajiToKatakana() {
-
         assertEquals("カタカナ", converter.convertRomajiToKatakana("katakana"));
         assertEquals("カタカナ", converter.convertRomajiToKatakana("KATAKANA"));
         assertEquals("ホンコン", converter.convertRomajiToKatakana("honkon"));
@@ -33,7 +29,6 @@ public class MojiConverterTest {
 
     @Test
     public void shouldConvertRomajiToHiragana() {
-        
         assertEquals("ひらがな", converter.convertRomajiToHiragana("hiragana"));
         assertEquals("ひらがな", converter.convertRomajiToHiragana("HIRAGANA"));
         assertEquals("しんばし", converter.convertRomajiToHiragana("shinbashi"));
@@ -46,5 +41,28 @@ public class MojiConverterTest {
         assertEquals("ひきつづき", converter.convertRomajiToHiragana("hikitsudzuki"));
         assertEquals("そらをとぶ", converter.convertRomajiToHiragana("sorawotobu"));
         assertEquals("なんやかんや", converter.convertRomajiToHiragana("nan'yakan'ya"));
+    }
+
+    @Test
+    public void shouldConvertKatakanaToRomaji() {
+        assertEquals("katakana", converter.convertKanaToRomaji("カタカナ"));
+        assertEquals("honkon", converter.convertKanaToRomaji("ホンコン"));
+        assertEquals("konbaataa", converter.convertKanaToRomaji("コンバーター"));
+        assertEquals("doraggu", converter.convertKanaToRomaji("ドラッグ"));
+        assertEquals("messhu", converter.convertKanaToRomaji("メッシュ"));
+        assertEquals("feisubukku", converter.convertKanaToRomaji("フェイスブック"));
+        assertEquals("paathii", converter.convertKanaToRomaji("パーティー"));
+    }
+
+    @Test
+    public void shouldConvertHiraganaToRomaji() {
+        assertEquals("hiragana", converter.convertKanaToRomaji("ひらがな"));
+        assertEquals("shinbashi", converter.convertKanaToRomaji("しんばし"));
+        assertEquals("obaasan", converter.convertKanaToRomaji("おばあさん"));
+        assertEquals("makkura", converter.convertKanaToRomaji("まっくら"));
+        assertEquals("matcha", converter.convertKanaToRomaji("まっちゃ"));
+        assertEquals("hikitsudzuki", converter.convertKanaToRomaji("ひきつづき"));
+        assertEquals("sorawotobu", converter.convertKanaToRomaji("そらをとぶ"));
+        assertEquals("nanyakanya", converter.convertKanaToRomaji("なんやかんや"));
     }
 }

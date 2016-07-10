@@ -9,16 +9,23 @@ import java.util.Map;
 import java.util.TreeMap;
 
 class ConversionTable {
-    private static ConversionTable ROMAJI_TO_KATAKANA;
-    private static ConversionTable ROMAJI_TO_HIRAGANA;
+    static ConversionTable ROMAJI_TO_KATAKANA;
+    static ConversionTable ROMAJI_TO_HIRAGANA;
+    static ConversionTable KANA_TO_ROMAJI;
 
-    private Map<String, String> map;
+    static {
+        ROMAJI_TO_KATAKANA = createConversionTableFromResource("/romaji_to_katakana.csv");
+        ROMAJI_TO_HIRAGANA = createConversionTableFromResource("/romaji_to_hiragana.csv");
+        KANA_TO_ROMAJI = createConversionTableFromResource("/kana_to_romaji.csv");
+    }
+
+    private Map<String, String> conversionMap;
     private int maxKeyLength;
 
-    ConversionTable(Map<String, String> map) {
-        this.map = map;
+    ConversionTable(Map<String, String> conversionMap) {
+        this.conversionMap = conversionMap;
 
-        for (String key : map.keySet()) {
+        for (String key : conversionMap.keySet()) {
 
             if (key.length() > maxKeyLength) {
                 maxKeyLength = key.length();
@@ -31,33 +38,10 @@ class ConversionTable {
     }
 
     String get(String key) {
-        return map.get(key);
+        return conversionMap.get(key);
     }
 
-    static ConversionTable getConversionTableForMode(ConversionMode mode) {
-
-        switch (mode) {
-            case ROMAJI_TO_KATAKANA:
-
-                if (ROMAJI_TO_KATAKANA == null) {
-                    ROMAJI_TO_KATAKANA = new ConversionTable(readConversionMapFromResource("/romaji_to_katakana.csv"));
-                }
-
-                return ROMAJI_TO_KATAKANA;
-
-            case ROMAJI_TO_HIRAGANA:
-
-                if (ROMAJI_TO_HIRAGANA == null) {
-                    ROMAJI_TO_HIRAGANA = new ConversionTable(readConversionMapFromResource("/romaji_to_hiragana.csv"));
-                }
-
-                return ROMAJI_TO_HIRAGANA;
-        }
-
-        return null;
-    }
-
-    private static Map<String, String> readConversionMapFromResource(String resourceName) {
+    private static ConversionTable createConversionTableFromResource(String resourceName) {
 
         URL resourceUrl = ConversionTable.class.getResource(resourceName);
         Map<String, String> conversionMap = new TreeMap<String, String>();
@@ -95,6 +79,6 @@ class ConversionTable {
             }
         }
 
-        return conversionMap;
+        return new ConversionTable(conversionMap);
     }
 }
