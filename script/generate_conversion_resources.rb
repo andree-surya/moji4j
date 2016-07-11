@@ -31,6 +31,22 @@ kana_to_romaji.merge!(Mojinizer::KANA_TO_ROM2)
 kana_to_romaji.merge!({
   'ン' => 'n',
   'ん' => 'n',
+  'ンア' => 'n\'a',
+  'んあ' => 'n\'a',
+  'ンイ' => 'n\'i',
+  'んい' => 'n\'i',
+  'ンウ' => 'n\'u',
+  'んう' => 'n\'u',
+  'ンエ' => 'n\'e',
+  'んえ' => 'n\'e',
+  'ンオ' => 'n\'o',
+  'んお' => 'n\'o',
+  'ンヤ' => 'n\'ya',
+  'んや' => 'n\'ya',
+  'ンユ' => 'n\'yu',
+  'んゆ' => 'n\'yu',
+  'ンヨ' => 'n\'yo',
+  'んよ' => 'n\'yo'
 })
 
 kana_to_romaji.delete 'っ'

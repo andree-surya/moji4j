@@ -63,6 +63,8 @@ public class MojiConverterTest {
         assertEquals("matcha", converter.convertKanaToRomaji("まっちゃ"));
         assertEquals("hikitsudzuki", converter.convertKanaToRomaji("ひきつづき"));
         assertEquals("sorawotobu", converter.convertKanaToRomaji("そらをとぶ"));
-        assertEquals("nanyakanya", converter.convertKanaToRomaji("なんやかんや"));
+        assertEquals("annai", converter.convertKanaToRomaji("あんない"));
+        assertEquals("kan'i", converter.convertKanaToRomaji("かんい"));
+        assertEquals("nan'yakan'ya", converter.convertKanaToRomaji("なんやかんや"));
     }
 }
