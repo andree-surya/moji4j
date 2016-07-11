@@ -1,7 +1,7 @@
 
-**Moji4J** is an open source Java library that manages conversion between Romaji and Japanese Kana scripts (Hiragana and Katakana).
+**Moji4J** is an open source Java library to converts between Japanese Hiragana, Katakana, and Romaji scripts.
 
-## Romaji Conversion
+## Romaji and Kana Conversion
 
     MojiConverter converter = new MojiConverter();
 
@@ -23,7 +23,7 @@
 
 ## Romanization Convention
 
-The romanization convention in this library is loosely based on the modern [Hepburn system](1), with adjustments to avoid conversion ambiguity.
+The romanization system adopted by this library is loosely based on the [modern Hepburn system][1], with adjustments for cases that might causes ambiguity during conversion.
 
 | Cases           | Romaji    | Kana      
 |-----------------|-----------|-----------
@@ -43,7 +43,7 @@ The romanization convention in this library is loosely based on the modern [Hepb
 
 ## Acknowledgement
 
-The romanization tables used in this library are derived from [Mojinizer](2), a Ruby library to converts between Japanese Kana and Romaji. The data is modified to suit differences in algorithm and romanization convention.
+The romanization tables used in this library are derived from [Mojinizer][2], a Ruby library to converts between Japanese Kana and Romaji. The data is modified to suit differences in algorithm and romanization convention.
 
 ## License
 
@@ -62,4 +62,4 @@ The romanization tables used in this library are derived from [Mojinizer](2), a 
     limitations under the License.
 
 [1]: https://en.wikipedia.org/wiki/Hepburn_romanization
-[2]: https://github.com/joeellis/romajinizer
+[2]: https://github.com/ikayzo/mojinizer
