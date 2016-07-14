@@ -25,6 +25,7 @@ public class MojiConverterTest {
         assertEquals("メッシュ", converter.convertRomajiToKatakana("messhu"));
         assertEquals("フェイスブック", converter.convertRomajiToKatakana("feisubukku"));
         assertEquals("パーティー", converter.convertRomajiToKatakana("paathii"));
+        assertEquals("ジェット", converter.convertRomajiToHiragana("jetto"));
     }
 
     @Test
@@ -41,6 +42,7 @@ public class MojiConverterTest {
         assertEquals("ひきつづき", converter.convertRomajiToHiragana("hikitsudzuki"));
         assertEquals("そらをとぶ", converter.convertRomajiToHiragana("sorawotobu"));
         assertEquals("なんやかんや", converter.convertRomajiToHiragana("nan'yakan'ya"));
+        assertEquals("じょうだん", converter.convertRomajiToHiragana("joudan"));
     }
 
     @Test
@@ -52,6 +54,7 @@ public class MojiConverterTest {
         assertEquals("messhu", converter.convertKanaToRomaji("メッシュ"));
         assertEquals("feisubukku", converter.convertKanaToRomaji("フェイスブック"));
         assertEquals("paathii", converter.convertKanaToRomaji("パーティー"));
+        assertEquals("jetto", converter.convertKanaToRomaji("ジェット"));
     }
 
     @Test
@@ -66,5 +69,6 @@ public class MojiConverterTest {
         assertEquals("annai", converter.convertKanaToRomaji("あんない"));
         assertEquals("kan'i", converter.convertKanaToRomaji("かんい"));
         assertEquals("nan'yakan'ya", converter.convertKanaToRomaji("なんやかんや"));
+        assertEquals("joudan", converter.convertKanaToRomaji("じょうだん"));
     }
 }
