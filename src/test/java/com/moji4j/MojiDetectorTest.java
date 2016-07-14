@@ -36,9 +36,9 @@ public class MojiDetectorTest {
 
     @Test
     public void shouldTellIfTextHasLatin() {
-        assertTrue(detector.hasLatin("Latin"));
-        assertTrue(detector.hasLatin("モデル XYZ"));
-        assertFalse(detector.hasLatin("飛んでもない"));
-        assertFalse(detector.hasLatin("ロシア"));
+        assertTrue(detector.hasRomaji("Latin"));
+        assertTrue(detector.hasRomaji("モデル XYZ"));
+        assertFalse(detector.hasRomaji("飛んでもない"));
+        assertFalse(detector.hasRomaji("ロシア"));
     }
 }

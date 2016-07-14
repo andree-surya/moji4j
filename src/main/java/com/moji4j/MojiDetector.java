@@ -26,11 +26,11 @@ public class MojiDetector {
         return false;
     }
 
-    public boolean hasLatin(String string) {
+    public boolean hasRomaji(String string) {
 
         for (char c : string.toCharArray()) {
 
-            if (isLatin(c)) {
+            if (isRomaji(c)) {
                 return true;
             }
         }
@@ -50,7 +50,7 @@ public class MojiDetector {
         return (Character.UnicodeBlock.of(c) == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS);
     }
 
-    private boolean isLatin(char c) {
+    private boolean isRomaji(char c) {
         return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
     }
 }

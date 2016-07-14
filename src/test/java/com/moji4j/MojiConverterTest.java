@@ -25,7 +25,7 @@ public class MojiConverterTest {
         assertEquals("メッシュ", converter.convertRomajiToKatakana("messhu"));
         assertEquals("フェイスブック", converter.convertRomajiToKatakana("feisubukku"));
         assertEquals("パーティー", converter.convertRomajiToKatakana("paathii"));
-        assertEquals("ジェット", converter.convertRomajiToHiragana("jetto"));
+        assertEquals("ジェット", converter.convertRomajiToKatakana("jetto"));
     }
 
     @Test
