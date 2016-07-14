@@ -1,6 +1,16 @@
 
 **Moji4J** is an open source Java library to converts between Japanese Hiragana, Katakana, and Romaji scripts.
 
+## Installation
+
+Please add the following Maven dependency to your `pom.xml`:
+
+    <dependency>
+        <groupId>com.andree-surya</groupId>
+        <artifactId>moji4j</artifactId>
+        <version>1.0.0</version>
+    </dependency>
+
 ## Romaji and Kana Conversion
 
     MojiConverter converter = new MojiConverter();
