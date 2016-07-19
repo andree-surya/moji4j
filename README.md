@@ -28,8 +28,8 @@ Please add the following Maven dependency to your `pom.xml`:
     detector.hasKanji("まっしろ"); // false
     detector.hasKana("ウソ付き"); // true
     detector.hasKana("東京"); // false
-    detector.hasLatin("モデル XYZ"); // true
-    detector.hasLatin("フルーツ"); // false
+    detector.hasRomaji("モデル XYZ"); // true
+    detector.hasRomaji("フルーツ"); // false
 
 ## Romanization Convention
 
