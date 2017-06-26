@@ -9,20 +9,19 @@ import java.util.Map;
 import java.util.TreeMap;
 
 class ConversionTable {
-    static ConversionTable ROMAJI_TO_KATAKANA;
-    static ConversionTable ROMAJI_TO_HIRAGANA;
-    static ConversionTable KANA_TO_ROMAJI;
 
-    static {
-        ROMAJI_TO_KATAKANA = createConversionTableFromResource("/romaji_to_katakana.csv");
-        ROMAJI_TO_HIRAGANA = createConversionTableFromResource("/romaji_to_hiragana.csv");
-        KANA_TO_ROMAJI = createConversionTableFromResource("/kana_to_romaji.csv");
-    }
+    private static final String ROMAJI_TO_KATAKANA_FILE = "/romaji_to_katakana.csv";
+    private static final String ROMAJI_TO_HIRAGANA_FILE = "/romaji_to_hiragana.csv";
+    private static final String KANA_TO_ROMAJI_FILE = "/kana_to_romaji.csv";
+
+    private static ConversionTable romajiToKatakanaTable;
+    private static ConversionTable romajiToHiraganaTable;
+    private static ConversionTable kanaToRomajiTable;
 
     private Map<String, String> conversionMap;
     private int maxKeyLength;
 
-    ConversionTable(Map<String, String> conversionMap) {
+    private ConversionTable(Map<String, String> conversionMap) {
         this.conversionMap = conversionMap;
 
         for (String key : conversionMap.keySet()) {
@@ -41,16 +40,41 @@ class ConversionTable {
         return conversionMap.get(key);
     }
 
+    public static synchronized ConversionTable getRomajiToKatakana() {
+
+        if (romajiToKatakanaTable == null) {
+            romajiToKatakanaTable = createConversionTableFromResource(ROMAJI_TO_KATAKANA_FILE);
+        }
+
+        return romajiToKatakanaTable;
+    }
+
+    public static synchronized ConversionTable getRomajiToHiragana() {
+
+        if (romajiToHiraganaTable == null) {
+            romajiToHiraganaTable = createConversionTableFromResource(ROMAJI_TO_HIRAGANA_FILE);
+        }
+
+        return romajiToHiraganaTable;
+    }
+
+    public static synchronized ConversionTable getKanaToRomaji() {
+
+        if (kanaToRomajiTable == null) {
+            kanaToRomajiTable = createConversionTableFromResource(KANA_TO_ROMAJI_FILE);
+        }
+
+        return kanaToRomajiTable;
+    }
+
     private static ConversionTable createConversionTableFromResource(String resourceName) {
 
         URL resourceUrl = ConversionTable.class.getResource(resourceName);
-        Map<String, String> conversionMap = new TreeMap<String, String>();
 
-        InputStream inputStream = null;
+        try (InputStream inputStream = resourceUrl.openStream()) {
 
-        try {
-            inputStream = resourceUrl.openStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            Map<String, String> conversionMap = new TreeMap<String, String>();
 
             String line;
             while ((line = reader.readLine()) != null) {
@@ -63,22 +87,10 @@ class ConversionTable {
                 conversionMap.put(key, value);
             }
 
+            return new ConversionTable(conversionMap);
+
         } catch (IOException exception) {
             throw new RuntimeException(exception);
-
-        } finally {
-
-            if (inputStream == null) {
-                try {
-                    inputStream.close();
-
-                } catch (IOException exception) {
-                    throw new RuntimeException(exception);
-
-                }
-            }
         }
-
-        return new ConversionTable(conversionMap);
     }
 }

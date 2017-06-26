@@ -8,7 +8,7 @@ public class MojiConverter {
         string = string.toLowerCase();
         string = replaceLongVowelWithDashMarker(string);
         string = replaceDoubleConsonantWithSokuonMarker(string, 'ッ');
-        string = replaceStringWithConversionTable(string, ConversionTable.ROMAJI_TO_KATAKANA);
+        string = replaceStringWithConversionTable(string, ConversionTable.getRomajiToKatakana());
 
         return string;
     }
@@ -17,14 +17,14 @@ public class MojiConverter {
 
         string = string.toLowerCase();
         string = replaceDoubleConsonantWithSokuonMarker(string, 'っ');
-        string = replaceStringWithConversionTable(string, ConversionTable.ROMAJI_TO_HIRAGANA);
+        string = replaceStringWithConversionTable(string, ConversionTable.getRomajiToHiragana());
 
         return string;
     }
 
     public String convertKanaToRomaji(String string) {
 
-        string = replaceStringWithConversionTable(string, ConversionTable.KANA_TO_ROMAJI);
+        string = replaceStringWithConversionTable(string, ConversionTable.getKanaToRomaji());
         string = replaceDashMarkerWithLongVowel(string);
         string = replaceSokuonMarkersWithDoubleConsonant(string);
 
