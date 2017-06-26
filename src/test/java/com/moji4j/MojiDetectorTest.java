@@ -35,10 +35,40 @@ public class MojiDetectorTest {
     }
 
     @Test
-    public void shouldTellIfTextHasLatin() {
+    public void shouldTellIfTextHasRomaji() {
         assertTrue(detector.hasRomaji("Latin"));
         assertTrue(detector.hasRomaji("モデル XYZ"));
         assertFalse(detector.hasRomaji("飛んでもない"));
         assertFalse(detector.hasRomaji("ロシア"));
+    }
+
+    @Test
+    public void shouldTellIfCharacterIsKanji() {
+        assertTrue(detector.isKanji('爆'));
+        assertTrue(detector.isKanji('食'));
+        assertFalse(detector.isKanji('ー'));
+        assertFalse(detector.isKanji('か'));
+        assertFalse(detector.isKanji('ナ'));
+        assertFalse(detector.isKanji('a'));
+        assertFalse(detector.isKanji('"'));
+    }
+
+    @Test
+    public void shouldTellIfCharacterIsKana() {
+        assertTrue(detector.isKana('あ'));
+        assertTrue(detector.isKana('ワ'));
+        assertTrue(detector.isKana('っ'));
+        assertTrue(detector.isKana('ー'));
+        assertFalse(detector.isKana('.'));
+        assertFalse(detector.isKana('。'));
+    }
+
+    @Test
+    public void shouldTellIfCharacterIsRomaji() {
+        assertTrue(detector.isRomaji('a'));
+        assertTrue(detector.isRomaji('Z'));
+        assertFalse(detector.isRomaji(' '));
+        assertFalse(detector.isRomaji('じ'));
+        assertFalse(detector.isRomaji('字'));
     }
 }

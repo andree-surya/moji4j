@@ -38,7 +38,7 @@ public class MojiDetector {
         return false;
     }
 
-    private boolean isKana(char c) {
+    public boolean isKana(char c) {
         Character.UnicodeBlock b = Character.UnicodeBlock.of(c);
 
         return (b == Character.UnicodeBlock.HIRAGANA ||
@@ -46,11 +46,11 @@ public class MojiDetector {
                 b == Character.UnicodeBlock.KATAKANA_PHONETIC_EXTENSIONS);
     }
 
-    private boolean isKanji(char c) {
+    public boolean isKanji(char c) {
         return (Character.UnicodeBlock.of(c) == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS);
     }
 
-    private boolean isRomaji(char c) {
+    public boolean isRomaji(char c) {
         return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
     }
 }
